@@ -4,17 +4,36 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" type="text/css" href="main.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
     <title>Eth0a</title>
   </head>
   <body>
-    <h1>Eth0a</h1>
-    <p>We're on the internet !</p>
-    <p>Bonjoooour Antwane</p>
-    <ul id="messages"></ul>
-    <form id="form">
-      <textarea id="input"></textarea>
-      <button type="submit">Envoyer</button>
-    </form>
+    <div class="app">
+      <h1 class="title centered">Eth0a</h1>
+      <div class="page h-100 w-100 column centered mx-3">
+        <div class="rows fill">
+          <div class="w-70">
+            <p>We're on the internet !</p>
+            <p>Bonjoooour Antwane</p>
+          </div>
+          <div class="w-30">
+            <ul id="messages h-80"></ul>
+            <div id="chat-input">
+              <form id="form">
+                <textarea id="input"></textarea>
+                <button type="submit">Envoyer</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
   <script src="/socket.io/socket.io.js"></script>
   <script>
