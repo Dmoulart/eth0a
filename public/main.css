@@ -7,7 +7,7 @@ body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    overflow-x: hidden;
+    overflow: hidden;
     --chat-width: 30%;
 }
 
@@ -31,11 +31,13 @@ body{
     overflow-y: auto;
     max-height: 100vh;
     width: var(--chat-width);
-    border: 1px solid;
+    border-left: 1px solid;
 }
 
 .chat__messages{
-    min-height: 80vh;
+    height: 90vh;
+    max-height: 90vh;
+    overflow: scroll;
 }
 
 .chat__form{
@@ -44,11 +46,23 @@ body{
 }
 
 .chat__input {
-    flex-grow: 2;
+    height:10vh;
+    flex-grow: 1;
+}
+
+.chat__submit{
+    min-width: 30%;
 }
 
 .message {
     padding: 12px;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 1rem;
 }
 /* 
 .w-100{
@@ -102,12 +116,7 @@ body{
     flex-direction: column;
 }
 
-.title {
-    font-size: 2.5rem;
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 1rem;
-}
+
 
 .rows{
     display: flex;
