@@ -22,7 +22,10 @@ const server = app.listen(port, () => {
 
 const io = new Server(server);
 
+const players = {};
+
 io.on("connection", (socket) => {
+  let player;
   console.log("a user connected");
 
   socket.on("chat:message", ({ username, msg }) => {
@@ -30,7 +33,19 @@ io.on("connection", (socket) => {
     io.emit("chat:message", { username, msg });
   });
 
+  socket.on("sync:player", (playerData) => {
+    player = playerData;
+    players[player.name] = playerData;
+  });
+
+  setInterval(() => {
+    socket.emit("sync:players", Object.values(players));
+  }, 1000 / 60);
+
   socket.on("disconnect", () => {
     console.log("user disconnected");
+    if (player) {
+      delete players[player.name];
+    }
   });
 });

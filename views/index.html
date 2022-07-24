@@ -15,9 +15,8 @@
   </head>
   <body>
     <div class="app">
-      <div class="game">
+      <div class="game" id="game">
         <h1 class="title">Eth0a</h1>
-        <canvas class="" id="game-canvas"></canvas>
       </div>
 
       <div class="chat">
@@ -53,13 +52,15 @@
 
     form.addEventListener("submit", function (e) {
       e.preventDefault();
-      if (input.value) {
-        socket.emit("chat:message", {
-          msg: input.value,
-          username: getUsername(),
-        });
-        input.value = "";
-      }
+
+      if (!input.value) return;
+
+      socket.emit("chat:message", {
+        msg: input.value,
+        username: getUsername(),
+      });
+
+      input.value = "";
     });
 
     socket.on("chat:message", function ({ msg, username }) {
@@ -73,7 +74,9 @@
 
       messages.appendChild(usernameEl);
       messages.appendChild(messageEl);
+
       window.scrollTo(0, document.body.scrollHeight);
     });
   </script>
+  <script type="module" src="./main.js"></script>
 </html>
