@@ -15,22 +15,18 @@
   </head>
   <body>
     <div class="app">
-      <h1 class="title centered">Eth0a</h1>
-      <div class="page h-100 w-100 column centered mx-3">
-        <div class="rows fill">
-          <div class="w-70">
-            <p>We're on the internet !</p>
-            <p>Bonjoooour Antwane</p>
-          </div>
-          <div class="w-30">
-            <ul id="messages h-80"></ul>
-            <div id="chat-input">
-              <form id="form">
-                <textarea id="input"></textarea>
-                <button type="submit">Envoyer</button>
-              </form>
-            </div>
-          </div>
+      <div class="game">
+        <h1 class="title">Eth0a</h1>
+        <canvas class="" id="game-canvas"></canvas>
+      </div>
+
+      <div class="chat">
+        <ul class="chat__messages" id="messages"></ul>
+        <div class="chat__input">
+          <form id="form" class="chat__form">
+            <textarea id="input" class="chat__input"></textarea>
+            <button type="submit">Envoyer</button>
+          </form>
         </div>
       </div>
     </div>
@@ -38,6 +34,17 @@
   <script src="/socket.io/socket.io.js"></script>
   <script>
     const socket = io();
+
+    const getUsername = () => localStorage.getItem("eth0a_username");
+    const setUsername = (username) =>
+      localStorage.setItem("eth0a_username", username);
+
+    while (!getUsername()) {
+      const usernameInput = prompt("Saisissez votre nom d'utilisateur ");
+      if (usernameInput) {
+        setUsername(usernameInput);
+      }
+    }
 
     const form = document.getElementById("form");
     const input = document.getElementById("input");
@@ -47,15 +54,25 @@
     form.addEventListener("submit", function (e) {
       e.preventDefault();
       if (input.value) {
-        socket.emit("chat:message", input.value);
+        socket.emit("chat:message", {
+          msg: input.value,
+          username: getUsername(),
+        });
         input.value = "";
       }
     });
 
-    socket.on("chat:message", function (msg) {
-      const item = document.createElement("li");
-      item.textContent = msg;
-      messages.appendChild(item);
+    socket.on("chat:message", function ({ msg, username }) {
+      const messageEl = document.createElement("li");
+      messageEl.classList.add("message");
+      messageEl.textContent = msg;
+
+      const usernameEl = document.createElement("span");
+      usernameEl.classList.add("message__username");
+      usernameEl.textContent = username;
+
+      messages.appendChild(usernameEl);
+      messages.appendChild(messageEl);
       window.scrollTo(0, document.body.scrollHeight);
     });
   </script>

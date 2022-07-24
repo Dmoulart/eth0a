@@ -1,28 +1,56 @@
-
-
 html {
     font-family: 'Roboto', sans-serif;
     color: #333;
 }
 
 body{
-    display:flex;
-    flex-direction:column;
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    min-height: 100vh;
     overflow-x: hidden;
+    --chat-width: 30%;
 }
 
 .app{
     display:flex;
-    flex-direction:column;
-    height:100%;
-    width: 100%;
+    flex-direction:row;
     min-height: 100vh;
+    width: 100%;
 }
 
+.game{
+    display:flex;
+    height: 100%;
+    width: calc(100% - var(--chat-width));
+}
+
+.chat{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+    max-height: 100vh;
+    width: var(--chat-width);
+    border: 1px solid;
+}
+
+.chat__messages{
+    min-height: 80vh;
+}
+
+.chat__form{
+    display: flex;
+    width:100%;
+}
+
+.chat__input {
+    flex-grow: 2;
+}
+
+.message {
+    padding: 12px;
+}
+/* 
 .w-100{
     width: 100%;
 }
@@ -84,4 +112,4 @@ body{
 .rows{
     display: flex;
     flex-direction: row;
-}
+} */
